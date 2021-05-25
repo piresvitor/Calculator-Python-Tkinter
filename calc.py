@@ -15,43 +15,41 @@ class Calc:
         self.frame.pack()
 
         self.button_1 = Button(self.frame, bg="orange", bd=0, text="1", font="arial 20 bold", fg="black", width=5,
-                               height=3, command=None)
+                               height=3, command=lambda: self.add_number("1"))
         self.button_2 = Button(self.frame, bg="orange", bd=0, text="2", font="arial 20 bold", fg="black", width=5,
-                               height=3, command=None)
+                               height=3, command=lambda: self.add_number("2"))
         self.button_3 = Button(self.frame, bg="orange", bd=0, text="3", font="arial 20 bold", fg="black", width=5,
-                               height=3, command=None)
+                               height=3, command=lambda: self.add_number("3"))
         self.button_4 = Button(self.frame, bg="orange", bd=0, text="4", font="arial 20 bold", fg="black", width=5,
-                               height=3, command=None)
+                               height=3, command=lambda: self.add_number("4"))
         self.button_5 = Button(self.frame, bg="orange", bd=0, text="5", font="arial 20 bold", fg="black", width=5,
-                               height=3, command=None)
+                               height=3, command=lambda: self.add_number("5"))
         self.button_6 = Button(self.frame, bg="orange", bd=0, text="6", font="arial 20 bold", fg="black", width=5,
-                               height=3, command=None)
+                               height=3, command=lambda: self.add_number("6"))
         self.button_7 = Button(self.frame, bg="orange", bd=0, text="7", font="arial 20 bold", fg="black", width=5,
-                               height=3, command=None)
+                               height=3, command=lambda: self.add_number("7"))
         self.button_8 = Button(self.frame, bg="orange", bd=0, text="8", font="arial 20 bold", fg="black", width=5,
-                               height=3, command=None)
+                               height=3, command=lambda: self.add_number("8"))
         self.button_9 = Button(self.frame, bg="orange", bd=0, text="9", font="arial 20 bold", fg="black", width=5,
-                               height=3, command=None)
+                               height=3, command=lambda: self.add_number("9"))
         self.button_0 = Button(self.frame, bg="orange", bd=0, text="0", font="arial 20 bold", fg="black", width=5,
-                               height=3, command=None)
-        self.button_00 = Button(self.frame, bg="orange", bd=0, text="00", font="arial 20 bold", fg="black", width=5,
-                               height=3, command=None)
-        self.button_dot = Button(self.frame, bg="orange", bd=0, text=".", font="arial 20 bold", fg="black", width=5,
-                               height=3, command=None)
+                               height=3, command=lambda: self.add_number("0"))
+        self.button_00 = Button(self.frame, bg="orange", bd=0, text="00", font="arial 20 bold", fg="black",
+                                width=5, height=3, command=lambda: self.add_number("00"))
+        self.button_dot = Button(self.frame, bg="orange", bd=0, text=",", font="arial 20 bold", fg="black",
+                                 width=5, height=3, command=lambda: self.add_number("."))
         self.button_increase = Button(self.frame, bg="orange", bd=0, text="+", font="arial 20 bold", fg="black",
-                                 width=5, height=3, command=None)
+                                 width=5, height=3, command=lambda: self.add_number("+"))
         self.button_unincrease = Button(self.frame, bg="orange", bd=0, text="-", font="arial 20 bold", fg="black",
-                                 width=5, height=3, command=None)
+                                 width=5, height=3, command=lambda: self.add_number("-"))
         self.button_division = Button(self.frame, bg="orange", bd=0, text="/", font="arial 20 bold", fg="black",
-                                 width=5, height=3, command=None)
+                                 width=5, height=3, command=lambda: self.add_number("/"))
         self.button_multi = Button(self.frame, bg="orange", bd=0, text="*", font="arial 20 bold", fg="black",
-                                 width=5, height=3, command=None)
+                                 width=5, height=3, command=lambda: self.add_number("*"))
         self.button_clean = Button(self.frame, bg="orange", bd=0, text="AC", font="arial 20 bold", fg="black",
-                                 width=5, height=3, command=None)
+                                 width=5, height=3, command=self.clean)
         self.button_equal = Button(self.frame, bg="orange", bd=0, text="=", font="arial 20 bold", fg="black",
-                                 width=19, height=3, command=None)
-
-
+                                 width=19, height=3, command=self.result)
 
         self.button_1.grid(row=0, column=0)
         self.button_2.grid(row=0, column=1)
@@ -73,6 +71,17 @@ class Calc:
         self.button_division.grid(row=4, column=3)
 
         self.window.mainloop()
+
+    def add_number(self, num):
+        self.screen_numbers.insert(END, num)
+
+    def clean(self):
+        self.screen_numbers.delete(0, END)
+
+    def result(self):
+        t = eval(self.screen_numbers.get())
+        self.screen_numbers.delete(0,END)
+        self.screen_numbers.insert(0, str(t))
 
 
 Calc()
