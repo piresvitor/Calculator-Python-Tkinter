@@ -38,18 +38,18 @@ class Calc:
                                 width=5, height=3, command=lambda: self.add_number("00"))
         self.button_dot = Button(self.frame, bg="orange", bd=0, text=",", font="arial 20 bold", fg="black",
                                  width=5, height=3, command=lambda: self.add_number("."))
-        self.button_increase = Button(self.frame, bg="orange", bd=0, text="+", font="arial 20 bold", fg="black",
-                                 width=5, height=3, command=lambda: self.add_number("+"))
-        self.button_unincrease = Button(self.frame, bg="orange", bd=0, text="-", font="arial 20 bold", fg="black",
-                                 width=5, height=3, command=lambda: self.add_number("-"))
-        self.button_division = Button(self.frame, bg="orange", bd=0, text="/", font="arial 20 bold", fg="black",
-                                 width=5, height=3, command=lambda: self.add_number("/"))
-        self.button_multi = Button(self.frame, bg="orange", bd=0, text="*", font="arial 20 bold", fg="black",
-                                 width=5, height=3, command=lambda: self.add_number("*"))
-        self.button_clean = Button(self.frame, bg="orange", bd=0, text="AC", font="arial 20 bold", fg="black",
-                                 width=5, height=3, command=self.clean)
-        self.button_equal = Button(self.frame, bg="orange", bd=0, text="=", font="arial 20 bold", fg="black",
-                                 width=19, height=3, command=self.result)
+        self.button_increase = Button(self.frame, bg="orange", bd=0, text="+", font="arial 20 bold",
+                                      fg="black", width=5, height=3, command=lambda: self.add_number("+"))
+        self.button_unincrease = Button(self.frame, bg="orange", bd=0, text="-", font="arial 20 bold",
+                                        fg="black", width=5, height=3, command=lambda: self.add_number("-"))
+        self.button_division = Button(self.frame, bg="orange", bd=0, text="/", font="arial 20 bold",
+                                      fg="black", width=5, height=3, command=lambda: self.add_number("/"))
+        self.button_multi = Button(self.frame, bg="orange", bd=0, text="*", font="arial 20 bold",
+                                   fg="black", width=5, height=3, command=lambda: self.add_number("*"))
+        self.button_clean = Button(self.frame, bg="orange", bd=0, text="AC", font="arial 20 bold",
+                                   fg="black", width=5, height=3, command=self.clean)
+        self.button_equal = Button(self.frame, bg="orange", bd=0, text="=", font="arial 20 bold",
+                                   fg="black", width=19, height=3, command=self.result)
 
         self.button_1.grid(row=0, column=0)
         self.button_2.grid(row=0, column=1)
@@ -76,12 +76,22 @@ class Calc:
         self.screen_numbers.insert(END, num)
 
     def clean(self):
+        self.screen_numbers.config(state=NORMAL)
         self.screen_numbers.delete(0, END)
 
     def result(self):
-        t = eval(self.screen_numbers.get())
-        self.screen_numbers.delete(0,END)
-        self.screen_numbers.insert(0, str(t))
+        try:
+            t = eval(self.screen_numbers.get())
+            self.screen_numbers.delete(0, END)
+            self.screen_numbers.insert(0, str(t))
+        except (SyntaxError, ZeroDivisionError):
+            self.screen_numbers.delete(0, END)
+            self.screen_numbers.insert(0, "SINTAX ERROR")
+            self.screen_numbers.config(state=DISABLED)
+        except (NameError, Exception):
+            self.screen_numbers.delete(0, END)
+            self.screen_numbers.insert(0, "ERROR")
+            self.screen_numbers.config(state=DISABLED)
 
 
 Calc()
