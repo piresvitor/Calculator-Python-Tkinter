@@ -81,9 +81,9 @@ class Calc:
 
     def result(self):
         try:
-            t = eval(self.screen_numbers.get())
+            total = eval(self.screen_numbers.get())
             self.screen_numbers.delete(0, END)
-            self.screen_numbers.insert(0, str(t))
+            self.screen_numbers.insert(0, str(total))
         except (SyntaxError, ZeroDivisionError):
             self.screen_numbers.delete(0, END)
             self.screen_numbers.insert(0, "SINTAX ERROR")
