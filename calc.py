@@ -4,6 +4,8 @@ from tkinter import *
 class Calc:
 
     def __init__(self):
+        
+        # "Desenhando" a tela da calculadora 
         self.window = Tk()
         self.window.title("Calculator")
         self.window.resizable(0, 0)
@@ -14,6 +16,7 @@ class Calc:
         self.frame = Frame(self.window)
         self.frame.pack()
 
+        # Adicionando os Botões
         self.button_1 = Button(self.frame, bg="orange", bd=0, text="1", font="arial 20 bold", fg="black", width=5,
                                height=3, command=lambda: self.add_number("1"))
         self.button_2 = Button(self.frame, bg="orange", bd=0, text="2", font="arial 20 bold", fg="black", width=5,
@@ -51,6 +54,7 @@ class Calc:
         self.button_equal = Button(self.frame, bg="orange", bd=0, text="=", font="arial 20 bold",
                                    fg="black", width=19, height=3, command=self.result)
 
+        # Alinhamento dos botões 
         self.button_1.grid(row=0, column=0)
         self.button_2.grid(row=0, column=1)
         self.button_3.grid(row=0, column=2)
@@ -72,13 +76,16 @@ class Calc:
 
         self.window.mainloop()
 
+    # Função que adiciona os números no visor da tela 
     def add_number(self, num):
         self.screen_numbers.insert(END, num)
 
+    # Função para limpar a tela 
     def clean(self):
         self.screen_numbers.config(state=NORMAL)
         self.screen_numbers.delete(0, END)
 
+    # Função que calcula o resultado da conta e trata os erros
     def result(self):
         try:
             total = eval(self.screen_numbers.get())
